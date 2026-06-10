@@ -1,70 +1,17 @@
-Esse arquivo é baseado no [tutorial](https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no arquivo [original](https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês 
+Esse arquivo é baseado no [tutorial](https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no programa [original](https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês 
 
+## Entendendo um programa básico de Geant4
 
-Main classes:
+No caso de um programa grande como o Geant4, ele precisa ser dividido em unidades lógicas menores chamadas de categorias de classes. Cada categoria de classe tem uma função, para maiores detalhes visitar o [link](https://geant4-userdoc.web.cern.ch/UsersGuides/AllGuides/html/ForApplicationDevelopers/Fundamentals/classCategory.html)
 
-The experiment manager: G4RunManger
-The laws of physics: G4VUserPhysicsList
-The detector: G4VUserDetectorConstruction
-List of actions: G4VUserActionInitialization
-*All classes with VUser in their names are virtual classes and must be inherited by your own classes
+As classes principais são:
 
-To create a program from scratch with C++:
+O gerenciador da simulação: G4RunManger
+As leis da física: G4VUserPhysicsList
+O detector: G4VUserDetectorConstruction
+A lista de ações: G4VUserActionInitialization
+Nota:** classes com `VUser` no nome são classes virtuais e não podem ser usadas diretamente. Você deve criar sua própria classe herdando delas e implementar os métodos exigidos
 
-```cpp
-//Any C++ program must start with
-int main(){
-		return 0;
-}
-//tells your operational system everything is fine with the program
-```
-
-To create a simple G4 program:
-
-First, 
-
-<aside>
-💡
-
-VS Code's IntelliSense needs to be told where Geant4 headers are located, otherwise it will underline all `#include "G4*.hh"` statements in red.
-
-</aside>
-
-### 1. Find your Geant4 install path
-
-```bash
-find / -name "G4RunManager.hh" 2>/dev/null
-```
-
-Use the path under your **install** directory (not source), e.g. `/home/user/geant4-install/include/Geant4`.
-
-### 2. Export it in your `~/.bashrc`
-
-```bash
-export G4INCLUDE=/home/user/geant4-install/include/Geant4
-```
-
-Then run `source ~/.bashrc`.
-
-### 3. Add it to VS Code
-
-Open the Command Palette (`Ctrl+Shift+P`) → **C/C++: Edit Configurations (JSON)** and add `${G4INCLUDE}/**` to the `includePath`:
-
-```json
-{
-  "configurations": [
-    {
-      "name": "Linux",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "${G4INCLUDE}/**"
-      ],
-      "cppStandard": "c++17"
-    }
-  ],
-  "version": 4
-}
-
-```
+Abaixo temos um exemplo de um programa básico montado no Geant4, para tutorial de instalação e configuração veja [`geant4_tutorial.md`](./geant4_tutorial.md)
 
 
