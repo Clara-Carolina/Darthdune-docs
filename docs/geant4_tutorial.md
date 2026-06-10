@@ -25,7 +25,7 @@ As classes principais são:
 
 O programa darthdune foi construído utilizando a infraestrutura do Geant4. Por isso, a instalação correta e uma noção básica da estrutura do *toolkit* são pré-requisitos fundamentais para rodar e modificar o projeto. 
 
-Após concluir o processo de instalação descrito abaixo, recomendamos fortemente a leitura do arquivo [`geant4_basicsim.md`](./geant4_basicsim.md). Lá você encontrará uma simulação básica comentada linha por linha, além de links úteis relacionados.
+Após concluir o processo de instalação descrito abaixo, recomendamos fortemente a leitura do arquivo [`geant4_basicsim.cpp`](./geant4_basicsim.cpp). Lá você encontrará uma simulação básica comentada linha por linha, além de links úteis relacionados.
 
 ## Instalação do Geant4 (Linux/Ubuntu)
 Intruções baseadas na [documentação oficial do Geant4 v11.2](https://geant4-userdoc.web.cern.ch/UsersGuides/InstallationGuide/html/index.html) e no tutorial disponível no [youtube](https://www.youtube.com/watch?v=UyXFBP-dVHI)
