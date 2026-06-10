@@ -38,18 +38,36 @@
 // sua origem e momentum (incluindo a energia).
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:
+	MyPrimaryGenerator();
+	~MyPrimaryGenerator();
 	virtual void GeneratePrimaries(G4Event* anEvent) override;
+
+private:
+	G4ParticleGun* fParticleGun;  // Atributo da classe para evitar memory leak
 };
+
+MyPrimaryGenerator::MyPrimaryGenerator() {
+	// O gun é criado uma única vez, no construtor, não a cada evento
+	fParticleGun = new G4ParticleGun( G4Electron::Definition() );
+
+	// Definimos explicitamente a energia, direção e posição inicial
+	// para deixar claro o que estamos simulando
+	fParticleGun->SetParticleEnergy(1*GeV);
+	fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0, 0, 1)); // direção +z
+	fParticleGun->SetParticlePosition(G4ThreeVector(0, 0, 0));          // origem
+}
+
+MyPrimaryGenerator::~MyPrimaryGenerator() {
+	delete fParticleGun;
+}
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent){
 
-	auto particleGun = new G4ParticleGun( G4Electron::Definition() ); 
-	particleGun->GeneratePrimaryVertex(anEvent);
+	fParticleGun->GeneratePrimaryVertex(anEvent);
 
-	// Nós vamos utilizar os valores padrão para o momento e vertex (origem) das partículas
 	G4cout << "Event ID      " << anEvent->GetEventID() << G4endl;
-    G4cout << "Particle Name " << particleGun->GetParticleDefinition()->GetParticleName() << G4endl;
-    G4cout << "Energy (MeV)  " << particleGun->GetParticleEnergy() << G4endl;
+	G4cout << "Particle Name " << fParticleGun->GetParticleDefinition()->GetParticleName() << G4endl;
+	G4cout << "Energy (MeV)  " << fParticleGun->GetParticleEnergy() << G4endl;
 };
 
 // Para nossa primeira ação, precisamos gerar nossas partículas
@@ -98,7 +116,7 @@ G4VPhysicalVolume* MyDetector::Construct() {
 	// A segunda etapa é a definição de Um volume lógico, que é a união de uma geometria (sólido) e um material
     auto logicalWorld = new G4LogicalVolume(worldBox, lAr, "logicalWorld");
 
-    // A terceira etapa é o volume físic, que é realização de um volume lógico. É algo que possui posição e
+    // A terceira etapa é o volume físico, que é realização de um volume lógico. É algo que possui posição e
     // orientação no espaço.
     auto physicalWorld = new G4PVPlacement(0, {0,0,0}, logicalWorld, "physicalWorld", 0, false, 0);
 
@@ -137,4 +155,32 @@ int main(){
 	
 	return 0;
 }
+
+/* ========================================================================
+
+	O QUE ESPERAR AO RODAR
+
+	O terminal deve mostrar algo como:
+
+	**************************************************************
+	 Geant4 version Name: geant4-11-02-patch-02 [MT]
+	 ...
+	Event ID      0
+	Particle Name e-
+	Energy (MeV)  1000
+
+	... (repetido para cada evento)
+
+	Se a simulação encerrar com "Run Summary: Total number of events = 10",
+	funcionou corretamente.
+
+	PRÓXIMOS PASSOS
+
+	Este tutorial é a base. No projeto darthdune, o detector não é uma
+	caixa de argônio simples — é a geometria do campo elétrico de uma LArTPC
+	com o sistema de detecção de fótons PoWeR. Mas os mesmos três passos
+	(Sólido → Volume Lógico → Volume Físico) aparecem em toda a construção
+	dessa geometria.
+
+   ======================================================================== */
 
