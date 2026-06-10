@@ -1,6 +1,5 @@
-Esse arquivo é baseado no [tutorial](https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no programa [original](https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês 
+// Esse arquivo é baseado no tutoria (https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no programa original (https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês.
 
-``` cpp
 /* ========================================================================
 
 	TUTORIAL 001 - Simulação mais simples 
@@ -27,16 +26,16 @@ Esse arquivo é baseado no [tutorial](https://www.youtube.com/watch?v=zV9jTIykmr
    ======================================================================== */
 
 
-// 
+// Primeiro precisamos chamar as classes básicas do Geant4
 #include "G4VUserActionInitialization.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4ParticleGun.hh"
 #include "G4Electron.hh"
 #include "G4Event.hh"
 
-// This is YOUR source of particles. Primaries are the first
-// particles entering your detector. We must tell Geant4
-// which particles we want, their origin and momentum (including energy).
+// Essa é a sua fonte de partículas. As primárias são as primeiras partículas
+// entrando no detector. Precisamos especificar qual partículas queremos,
+// sua origem e momentum (incluindo a energia).
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:
 	virtual void GeneratePrimaries(G4Event* anEvent) override;
@@ -47,15 +46,13 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent){
 	auto particleGun = new G4ParticleGun( G4Electron::Definition() ); 
 	particleGun->GeneratePrimaryVertex(anEvent);
 
-	// We will rely on the default values for the particle's momentum and vertex (its origin).
-	// Not the best way of doing it, but let's ask a few things from the Primary Generator
-    G4cout << "Event ID      " << anEvent->GetEventID() << G4endl;
+	// Nós vamos utilizar os valores padrão para o momento e vertex (origem) das partículas
+	G4cout << "Event ID      " << anEvent->GetEventID() << G4endl;
     G4cout << "Particle Name " << particleGun->GetParticleDefinition()->GetParticleName() << G4endl;
     G4cout << "Energy (MeV)  " << particleGun->GetParticleEnergy() << G4endl;
 };
 
-// We need some action! The only action we will perform in this
-// first simulation is to generate our particles.
+// Para nossa primeira ação, precisamos gerar nossas partículas
 class MyActionInitialization: public G4VUserActionInitialization{
 public:
 	virtual void Build() const override;
@@ -63,11 +60,11 @@ public:
 
 void MyActionInitialization::Build() const {
 
-	// Today, the only action we want o initialize is our particle source
+	// E então, iniciar a fonte de partículas
 	SetUserAction( new MyPrimaryGenerator );
 };
 
-// The Detector
+// O detector:
 #include "G4VUserDetectorConstruction.hh"
 #include "G4Material.hh"
 #include "G4NistManager.hh"
@@ -83,48 +80,52 @@ public:
 
 G4VPhysicalVolume* MyDetector::Construct() {
 
-	// The Detector "Geometry" = The Geometrical Model + The Material Model
-	// Ask for the NIST Manager for a material ready to be used
-	// You can find more at:
-	// https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
+	// A geometria do detector = O Modelo Geométrico + O Modelo de Materiais
+	// O Modelo Geométrico: Refere-se à definição dos volumes, formatos, tamanhos e posições dos componentes na sua simulação
+	// O Modelo de Materiais: define os materiais específicos (ex: chumbo, argônio, silício, água) que compõem cada parte da geometria
+	// Para os detalhes do material, podemos pedir ao Gerenciador NIST um material pronto para ser usado
+    // Você pode encontrar mais informações em:
+    // https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Appendix/materialNames.html
 	auto lAr = G4NistManager::Instance()->FindOrBuildMaterial("G4_lAr");
 	
-	// We need a solid for our lab (the world volume)
-	// This one is a Box, but you can learn more about solids here:
+	// No Geant4, nenhuma simulação acontece no vazio. Tudo precisa existir dentro de um espaço delimitado: o Mundo (World). 
+	// Pense nele como as paredes do laboratório, se uma partícula cruzar essa fronteira, ela deixa de ser rastreada
+	// A construção de qualquer volume exige três etapas. A linha abaixo define a primeira delas: o Sólido (a forma geométrica).
+	// Para outros sólidos, consultar
 	// https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/Detector/Geometry/geomSolids.html
 	auto worldBox = new G4Box("worldBox", 10000, 10000, 10000);
 
-	// A logical volume is the union of a geometry and a material
-	auto logicalWorld = new G4LogicalVolume(worldBox, lAr, "logicalWorld");
+	// A segunda etapa é a definição de Um volume lógico, que é a união de uma geometria (sólido) e um material
+    auto logicalWorld = new G4LogicalVolume(worldBox, lAr, "logicalWorld");
 
-	// A physical volume is a realization of a logical volume. It's something that has a position and
-	// orientation in space.
-	auto physicalWorld = new G4PVPlacement(0, {0,0,0}, logicalWorld, "physicalWorld", 0, false, 0);
+    // A terceira etapa é o volume físic, que é realização de um volume lógico. É algo que possui posição e
+    // orientação no espaço.
+    auto physicalWorld = new G4PVPlacement(0, {0,0,0}, logicalWorld, "physicalWorld", 0, false, 0);
 
-	return physicalWorld;
+return physicalWorld;
 };
 
 
-// The Manager
+// O gerenciador
 #include "G4RunManager.hh"
 #include "G4RunManagerFactory.hh"
 
-// The Physics List
+// A física
 #include "G4VUserPhysicsList.hh"
 #include "G4PhysListFactory.hh"
-// We are going to import a pre-made physics list called "Shielding"
-// You can find other options at 
+// Nós vamos importar uma Physics List para definir as as partículas e processos físicos (como ionização, efeito fotoelétrico, etc.) que estarão ativos na simulação da físca 
+// A utilizada nesse caso é chamada de "Shielding", para outras opções visite: 
 // https://geant4-userdoc.web.cern.ch/UsersGuides/ForApplicationDeveloper/html/TrackingAndPhysics/physicsProcess.html
 
-// This is the Main code.
+// Esse é o código principal
 int main(){
 
 	auto manager = G4RunManagerFactory::CreateRunManager();
 
-	// We can get a pointer to an existing Physics List from the Factory
+	// Podemos obter um ponteiro para uma Physics List existente a partir da Factory
 	auto physicsListFactory = new G4PhysListFactory();
 	auto physicsList = physicsListFactory->GetReferencePhysList("Shielding");
-	delete physicsListFactory; // Don't forget to delete the Factory
+	delete physicsListFactory; // Não esquecer de deletar a Physics List 
 
 	manager->SetUserInitialization( new MyDetector );
 	manager->SetUserInitialization( physicsList );
@@ -132,9 +133,8 @@ int main(){
 	manager->Initialize();
 	manager->BeamOn(1000);
 
-	delete manager; // The manager will delete all other pointers owned by it.
+	delete manager; // O gerenciador vai deletar todos os processos gerenciados por ele.
 	
 	return 0;
 }
 
-```
