@@ -1,4 +1,4 @@
-// Esse arquivo é baseado no tutoria (https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no programa original (https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês.
+// Esse arquivo é baseado no tutorial disponível no link (https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no programa original (https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês.
 
 /* ========================================================================
 
