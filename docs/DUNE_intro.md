@@ -1,6 +1,6 @@
-# DUNE/PoWeR — Sistema de Fotodetecção
+# DUNE/PoWER — Sistema de Fotodetecção
 
-Este documento apresenta uma visão geral do experimento DUNE, do detector LArTPC e do sistema de fotodetecção PoWeR — base do trabalho desenvolvido pelo grupo. Para detalhes sobre a simulação, consulte [`darthdune.md`](./darthdune.md) e [`geant4.md`](./geant4.md).
+Este documento apresenta uma visão geral do experimento DUNE, do detector LArTPC e do sistema de fotodetecção PoWER — base do trabalho desenvolvido pelo grupo. Para detalhes sobre a simulação, consulte [`darthdune.md`](./darthdune.md) e [`geant4.md`](./geant4.md).
 
 
 O DUNE (Deep Underground Neutrino Experiment) é um experimento de física de partículas de grande escala localizado no Laboratório Nacional de Fermilab (EUA) e no Sanford Underground Research Facility (SURF), Dakota do Sul. Seu principal objetivo é estudar oscilações de neutrinos, investigar a assimetria entre matéria e antimatéria no setor leptônico e detectar neutrinos provenientes de supernovas galácticas.
@@ -14,8 +14,8 @@ O detector do DUNE é baseado na tecnologia LArTPC (Liquid Argon Time Projection
 - Região de Deriva (Drift Region): volume de argônio líquido onde os elétrons de ionização gerados pelas interações se movem em direção ao ânodo.
 - Sistema de Detecção de Fótons (PDS): responsável pela detecção da luz de cintilação emitida pelo argônio.
 
-![Representação esquemática de um módulo LArTPC do DUNE, com destaque para o sistema PoWeR.](./images/lartpc_diagram.jpeg)
-*Figura 1: Representação científica de um módulo detector LArTPC do DUNE. À direita, detalhe do sistema PoWeR acoplado ao plano de ânodo.*
+![Representação esquemática de um módulo LArTPC do DUNE, com destaque para o sistema PoWER.](./images/lartpc_diagram.jpeg)
+*Figura 1: Representação científica de um módulo detector LArTPC do DUNE. À direita, detalhe do sistema PoWER acoplado ao plano de ânodo.*
 
 
 ## Sistema de Detecção de Fótons (PDS)
@@ -27,13 +27,13 @@ Além do sinal de carga, o LArTPC detecta a luz de cintilação emitida pelo arg
 Neutrinos interagem com o argônio líquido dentro da field cage, fazendo com que o meio emita luz de cintilação em 128 nm (ultravioleta de vácuo, VUV). Nesse comprimento de onda, a luz sofre intenso espalhamento Rayleigh no argônio líquido, limitando significativamente o livre caminho médio dos fótons. Uma das formas de diminuir esse efeito é dopar o LAr com uma pequena concentração de xenônio líquido(LXe). O xenônio desloca o comprimento de onda da emissão de 128 nm para 173 nm, espectro em que o espalhamento Rayleigh é consideravelmente menor e o livre caminho médio dos fótons é maior e também atua como compensador para perdas de luz causadas por contaminantes, como traços de nitrogênio e oxigênio.
 
 
-## O Sistema PoWeR
+## O Sistema PoWER
 
-O PoWeR (Polymer Wavelength Enhanced Reflector) é um sistema de conversão e reflexão de luz desenvolvido para aumentar o rendimento e a uniformidade da detecção de fótons no DUNE.
+O PoWER (Polymer Wavelength Enhanced Reflector) é um sistema de conversão e reflexão de luz desenvolvido para aumentar o rendimento e a uniformidade da detecção de fótons no DUNE.
 
 ### Princípio de funcionamento
 
-O PoWeR converte a luz de cintilação UV do argônio em luz visível, que possui comprimento de espalhamento Rayleigh muito maior no LAr, permitindo que os fótons percorram distâncias maiores até atingir os detectores. O sistema é composto por duas camadas instaladas sobre a field cage:
+O PoWER converte a luz de cintilação UV do argônio em luz visível, que possui comprimento de espalhamento Rayleigh muito maior no LAr, permitindo que os fótons percorram distâncias maiores até atingir os detectores. O sistema é composto por duas camadas instaladas sobre a field cage:
 
 | Camada | Material | Espessura | Função |
 |---|---|---|---|
@@ -45,7 +45,7 @@ Adicionalmente, uma camada de do material ESR (Enhanced Specular Reflector) são
 
 O comportamento do sistema varia conforme a localização do evento de interação:
 
-![Diagrama ilustrando os dois casos de operação do sistema PoWeR: evento no volume ativo (a) e evento no LAr buffer (b).](./images/power_cases.png)
+![Diagrama ilustrando os dois casos de operação do sistema PoWER: evento no volume ativo (a) e evento no LAr buffer (b).](./images/PoWER_cases.png)
 *Figura 2: (a) Evento no volume ativo — a luz VUV incidente sobre a field cage é convertida em visível pelo PEN e refletida pelo ESR em direção aos SiPMs. (b) Evento no LAr buffer — a luz VUV é bloqueada pela camada de acrílico (VETO) e não é convertida, sendo eventualmente absorvida ou detectada pelos detectores VUV.*
 
 a) Evento no volume ativo (active volume):
@@ -58,7 +58,7 @@ A camada de acrílico funciona como um VETO ótico: a luz VUV proveniente dessa 
 
 Os detectores utilizados no PDS são SiPMs (Silicon Photomultipliers) — fotodetectores de estado sólido de alta sensibilidade e ganho. No contexto do DUNE, cada SiPM possui dois LDUs (light Detection Units):
 
-- LDU externo: absorção de luz visível (fótons convertidos pelo PoWeR/PEN);
+- LDU externo: absorção de luz visível (fótons convertidos pelo PoWER/PEN);
 - LDU interno: sensível à luz VUV, responsável pela detecção direta da cintilação não convertida.
 
 Os SiPMs do DUNE são organizados em arranjos de 6 unidades compartilhando um cátodo comum, facilitando a leitura e o controle de qualidade.
@@ -72,7 +72,7 @@ Os SiPMs do DUNE são organizados em arranjos de 6 unidades compartilhando um c�
 
 ## Simulação com darthdune
 
-O programa darthdune, desenvolvido pelo Prof. André, tem como objetivo simular o transporte de fótons dentro da field cage com o sistema PoWeR acoplado, com o intuito de obter o light yield em função da posição do evento e dos parâmetros dos materiais envolvidos.
+O programa darthdune, desenvolvido pelo Prof. André, tem como objetivo simular o transporte de fótons dentro da field cage com o sistema PoWER acoplado, com o intuito de obter o light yield em função da posição do evento e dos parâmetros dos materiais envolvidos.
 
 Os parâmetros testados na simulação incluem:
 
