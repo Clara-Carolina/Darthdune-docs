@@ -32,7 +32,7 @@ Intruções baseadas na [documentação oficial do Geant4 v11.2](https://geant4-
 
 > Nota: este guia cobre instalação em sistemas Linux (Ubuntu/Debian), para outros sistemas, consulte a documentação oficial
 
-## Pré-requisitos
+### Pré-requisitos
 
 Antes de começar, verifique se os itens abaixo estão instalados:
 
@@ -57,14 +57,14 @@ sudo apt-get install libx11-dev libxmu-dev libxi-dev \
 ```
 > QT library (responsável pela interface do usuário e visualização)
 
-## 1. Download do código-fonte
+### 1. Download do código-fonte
 
 Acesse a página oficial de download:
 [https://cern.ch/geant4/download](https://cern.ch/geant4/download)
 
 Baixe o arquivo `.tar.gz` da versão mais recente (ex: `geant4-v11.2.0.tar.gz`)
 
-## 2. Estrutura de diretórios
+### 2. Estrutura de diretórios
 
 O Geant4 exige três diretórios separados: fonte, build e instalação -> Nunca compile dentro do diretório de fonte
 Crie a seguinte estrutura (ajuste o caminho conforme preferir):
@@ -87,7 +87,7 @@ Você deve ter agora:
 ├── geant4-v11.2.0-build/    ← onde a compilação acontece
 └── geant4-v11.2.0-install/  ← onde o Geant4 será instalado
 
-## 3. Configuração com CMake
+### 3. Configuração com CMake
 
 Entre no diretório de build e rode o CMake apontando para o fonte e para o destino de instalação:
 
@@ -104,7 +104,7 @@ cmake \
 Se o CMake retornar erros, encontre a mensagem de erro, ela que vai dizer qual dependência está faltando
 Se o CMake finalizar com `-- Configuring done` e `-- Build files have been written to: ...`, a configuração foi bem-sucedida
 
-## 4. Compilação
+### 4. Compilação
 
 Rode o `make` com paralelismo para acelerar o processo. Substitua `N` pelo número de núcleos da sua máquina (use `nproc` para descobrir):
 ```bash
@@ -116,7 +116,7 @@ make -j4
 ```
 A compilação pode levar de 20 minutos a mais de 1 hora dependendo da máquina
 
-## 5. Instalação
+### 5. Instalação
 
 Se a compilação terminar sem erros:
 ```bash
@@ -124,7 +124,7 @@ make install
 ```
 Isso copia as bibliotecas, headers e arquivos de suporte para o diretório de instalação 
 
-## 6. Configuração do ambiente
+### 6. Configuração do ambiente
 
 Para que o sistema encontre as bibliotecas do Geant4, é necessário carregar o script de ambiente a cada sessão. Adicione a linha abaixo ao seu `~/.bashrc` para que isso aconteça automaticamente:
 
@@ -139,7 +139,7 @@ echo $G4INSTALL
 ```
 Se retornar o caminho da instalação, o ambiente está configurado corretamente
 
-## 7. Verificação: rodando o exemplo B1
+### 7. Verificação: rodando o exemplo B1
 
 O Geant4 vem com exemplos prontos. O `B1` é o mais simples e serve para confirmar que tudo funciona
 
@@ -162,7 +162,7 @@ make -j4
 
 Se abrir uma janela com a visualização 3D do detector, a instalação está completa
 
-## Problemas comuns
+### Problemas comuns
 
 **`cmake: command not found`**
 Instale com `sudo apt-get install cmake`
@@ -182,7 +182,7 @@ Confirme que a linha `source ...geant4.sh` está no `~/.bashrc` e rode `source ~
 
 ## Instalação do ROOT
 
-O ROOT é um framework de análise de dados do CERN, utilizado pelo darthdune para histogramas, árvores de dados e análise dos outputs das simulações. Ele é instalado separadamente do Geant4
+O ROOT é um framework de análise de dados do CERN, utilizado pelo darthdune para histogramas, árvores de dados e análise dos outputs das simulações, e também deve ser instalado.
 
 Os métodos recomendados para Ubuntu são o binário pré-compilado (descrito abaixo) ou o [conda](https://root.cern/install/#conda).
 
