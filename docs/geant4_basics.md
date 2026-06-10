@@ -1,4 +1,5 @@
-[Tutorial](https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s)
+Esse arquivo é baseado no [tutorial](https://www.youtube.com/watch?v=zV9jTIykmr0&t=1172s) e no arquivo [original](https://github.com/gustavogx/geant4-tutorial/blob/master/001/main.cpp) em inglês 
+
 
 Main classes:
 
@@ -66,16 +67,4 @@ Open the Command Palette (`Ctrl+Shift+P`) → **C/C++: Edit Configurations (JSON
 
 ```
 
-Back to the program:
 
-```cpp
-#include "G4RunManager.hh" //the main command
-#include "G4RunManagerFactory.hh" //To build a new run manager
-
-int main(){
-		auto manager = G4RunManagerFactory::CreateRunManager();
-		
-		delete manager;
-		return 0;
-}
-```
