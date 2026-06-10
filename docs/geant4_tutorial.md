@@ -1,22 +1,31 @@
 # **Geant4 - introdução**
 
-O Geant4 é um toolkit (uma coleção de códigos pré-construídos, utilidades e componentes desenvolvidos para ajudar usuários configurar novos programas sem começar do zero), desenvolvido pelo CERN para simulações de partículas e suas interações com a matéria. Ele é escrito em C++ e já contém todos os aspectos necessários para este tipo de simulação:
+O Geant4 é um *toolkit* (uma coleção de bibliotecas de código, utilitários e componentes pré-construídos) desenvolvido pelo CERN para a simulação da passagem de partículas através da matéria. Escrito em C++, ele oferece uma estrutura robusta para que pesquisadores e desenvolvedores criem simulações complexas sem a necessidade de começar do zero.
 
-- A geometria do sistema,
-- Os materiais envolvidos,
-- As partículas fundamentais de interesse,
-- A geração de eventos primários,
-- O rastreamento de partículas através de materiais e campos eletromagnéticos,
-- Os processos físicos que governam as interações das partículas,
-- A resposta de componentes sensíveis do detector,
-- A geração de dados de eventos,
-- O armazenamento de eventos e trajetórias,
-- A visualização do detector e das trajetórias das partículas, e
-- A captura e análise de dados de simulação em diferentes níveis de detalhe e refinamento
+O *toolkit* engloba todos os aspectos essenciais para uma simulação física completa:
 
-Para maiores detalhes sobre o programa, visitar o [site oficial](https://geant4-userdoc.web.cern.ch/UsersGuides/IntroductionToGeant4/html/index.html)
+* Geometria e Materiais: Definição do formato do sistema e das propriedades químicas/físicas dos materiais envolvidos.
+* Partículas e Física: Modelagem das partículas fundamentais e dos processos físicos que governam as suas interações (incluindo campos eletromagnéticos).
+* Gerenciamento de Eventos: Geração de eventos primários, rastreamento (*tracking*) de trajetórias e armazenamento de dados.
+* Resposta do Detector:Simulação de componentes sensíveis e captura da resposta do detector.
+* Visualização e Análise:Ferramentas para visualizar a geometria e as trajetórias em 3D, além de coletar dados em diferentes níveis de refinamento.
 
-O programa darthdune foi montado a partir do Geant4, então é necessária sua instalação e um pouco de familiaridade com a estrutura do programa, um guia básico pode ser encontrado aqui
+Devido à sua extensão, o Geant4 é dividido em unidades lógicas menores chamadas de categorias de classes. Cada categoria possui uma responsabilidade específica no ecossistema da simulação. Para entender a arquitetura em detalhes, visite a [Documentação de Categorias de Classes do Geant4](https://geant4-userdoc.web.cern.ch/UsersGuides/AllGuides/html/ForApplicationDevelopers/Fundamentals/classCategory.html).
+
+As classes principais são:
+
+`G4RunManager`: O gerenciador central da simulação (controla o fluxo e o ciclo de vida do programa). 
+`G4VUserPhysicsList`: Define as leis da física, partículas e processos ativos na simulação. 
+`G4VUserDetectorConstruction`: Define a geometria do detector, materiais e regiões sensíveis. 
+`G4VUserActionInitialization`: Define a lista de ações do usuário (geração de partículas primárias, rotinas de análise, etc.)
+
+> Nota: Classes que possuem um `VUser` no nome são classes virtuais puras. Isso significa que elas funcionam como moldes e não podem ser instanciadas diretamente. Você deve criar a sua própria classe (ex: `MinhaDetectorConstruction`) herdando delas e implementando os métodos obrigatórios exigidos pelo Geant4.
+
+### O Projeto darthdune e o Geant4
+
+O programa darthdune foi construído utilizando a infraestrutura do Geant4. Por isso, a instalação correta e uma noção básica da estrutura do *toolkit* são pré-requisitos fundamentais para rodar e modificar o projeto. 
+
+Após concluir o processo de instalação descrito abaixo, recomendamos fortemente a leitura do arquivo [`geant4_basicsim.md`](./geant4_basicsim.md). Lá você encontrará uma simulação básica comentada linha por linha, além de links úteis relacionados.
 
 ## Instalação do Geant4 (Linux/Ubuntu)
 Intruções baseadas na [documentação oficial do Geant4 v11.2](https://geant4-userdoc.web.cern.ch/UsersGuides/InstallationGuide/html/index.html) e no tutorial disponível no [youtube](https://www.youtube.com/watch?v=UyXFBP-dVHI)
