@@ -30,7 +30,7 @@ Mesmo em 173 nm os fótons ainda são VUV e não são detectáveis por SiPMs con
 
 ## O Sistema PoWER
 
-O PoWER (Polymer Wavelength Enhanced Reflector) é o sistema WPS proposto pelo nosso grupo de pesquisa.
+O PoWER (Polymer Wavelength Enhanced Reflector) é o sistema WPS proposto pelo nosso grupo de pesquisa. A proposta é cobrir toda a face interna da field cage com um filme de PEN (0,1 mm) seguido de uma lâmina de acrílico (1 mm), e instalar painéis de *Enhanced Specular Reflector* (ESR, ~98% de refletividade) nas membranas do criostato para maximizar o número de reflexões até a detecção. No topo e no fundo, um material com ~30% de refletividade representa os painéis de leitura de carga.
 
 ### Princípio de funcionamento
 
@@ -83,5 +83,3 @@ Os parâmetros testados na simulação incluem:
 
 O programa é desenvolvido utilizando o framework Geant4 para simulação de transporte de partículas e fótons. Para mais detalhes sobre a implementação e como executar as simulações, consulte [`darthdune.md`](./darthdune.md) e [`geant4.md`](./geant4.md).
 
-
-*Documentação elaborada pelo grupo de pesquisa — CBPF/DUNE. Para dúvidas ou contribuições, abra uma issue no repositório.*
