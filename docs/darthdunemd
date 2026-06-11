@@ -1,0 +1,32 @@
+# Darthdune
+
+### O veto ativo
+
+
+
+Essa grandeza é o que o `readroothisto2d.C` calcula e plota no histograma `LightMapVeto`.
+
+### O papel do darthdune
+
+O darthdune é a simulação Geant4 standalone que o grupo utiliza para estudar o light yield do sistema PoWER e demonstrar o veto. Em cada execução:
+
+1. Fótons ópticos são gerados uniformemente em um voxel do volume ativo via GPS
+2. Cada fóton é propagado com os processos de reflexão, refração, espalhamento Rayleigh, absorção e wavelength shifting (via PEN)
+3. Quando um fóton atinge um LDU, a eficiência quântica do SiPM correspondente é aplicada probabilisticamente
+4. As coordenadas de origem de cada fóton detectado são registradas, construindo o light map
+
+O programa darthdune foi desenvolvido com base no Geant4, com o objetivo de simular a Field Cage do DUNE com o PoWER. O resultado é o light yeld  representados em light maps. **A simulação não simula neutrinos, ela simula os fótons que seriam gerados da interação neutrino-LAr**. 
+
+Para acessar o programa, precisa pedir autorização para acessar o [repositório do GitHub](https://github.com/steklain/darthdune/) para o professor André, e já ter o Geant4 e ROOT instalados no computador [(ver guia aqui)](./geant4_tutorial.md)
+
+Após clonar o repositório do GitHub para o seu computador, siga os seguintes passos, idealmente utilizando o Visual Code:
+
+Entra na pasta darthdune
+Crie a pasta: mkdir build 
+Vai para a pasta: cd build
+Copie os arquivos: cp ../data/DarthTraptis.cfg .  e cp ../macros/geometry.mac .
+Compile: cmake .. && make 
+Rode o executável: ./darthtraptis -i geometry.mac
+
+Essa é sua primeira simulação, deve abrir uma tela interativa para visualizar a field cage, além de gerar os light maps e histogramas.
+Para compilar os outputs do ROOT, rode hadd output.root output_* && rm output_*
