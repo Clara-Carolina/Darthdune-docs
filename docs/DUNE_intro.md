@@ -2,9 +2,7 @@
 
 Este documento apresenta uma visão geral do experimento DUNE, do detector LArTPC e do sistema de fotodetecção PoWER — base do trabalho desenvolvido pelo grupo. Para detalhes sobre a simulação, consulte [`darthdune.md`](./darthdune.md) e [`geant4.md`](./geant4.md).
 
-
-O DUNE (Deep Underground Neutrino Experiment) é um experimento de física de partículas de grande escala localizado no Laboratório Nacional de Fermilab (EUA) e no Sanford Underground Research Facility (SURF), Dakota do Sul. Seu principal objetivo é estudar oscilações de neutrinos, investigar a assimetria entre matéria e antimatéria no setor leptônico e detectar neutrinos provenientes de supernovas galácticas.
-
+O DUNE (Deep Underground Neutrino Experiment) é um experimento de física de partículas de grande escala localizado no Laboratório Nacional de Fermilab (EUA) e no Sanford Underground Research Facility (SURF), Dakota do Sul. Seu principal objetivo é estudar oscilações de neutrinos, investigar a assimetria entre matéria e antimatéria no setor leptônico e detectar neutrinos emitidos pelos eventos mais extremos do universo, contribuindo para a ciência dos multi-mensageiros.
 
 O detector do DUNE é baseado na tecnologia LArTPC (Liquid Argon Time Projection Chamber), que utiliza argônio líquido como meio ativo de detecção. Seus principais componentes são:
 
@@ -17,19 +15,22 @@ O detector do DUNE é baseado na tecnologia LArTPC (Liquid Argon Time Projection
 ![Representação esquemática de um módulo LArTPC do DUNE, com destaque para o sistema PoWER.](./images/lartpc_diagram.jpeg)
 *Figura 1: Representação científica de um módulo detector LArTPC do DUNE. À direita, detalhe do sistema PoWER acoplado ao plano de ânodo.*
 
+Numa LArTPC, uma partícula carregada que atravessa o argônio líquido produz simultaneamente ionização e luz de cintilação. O campo elétrico aplicado (tipicamente 500 V/cm) separa os elétrons de ionização, que derivam até os planos de leitura de carga. Já luz de cintilação fornece o tempo inicial do evento (t₀), essencial para calcular a posição de origem da ionização ao longo da direção de deriva.
 
-## Sistema de Detecção de Fótons (PDS)
-
-Além do sinal de carga, o LArTPC detecta a luz de cintilação emitida pelo argônio durante as interações. Essa informação complementar permite obter o instante preciso do evento (*t₀*), melhorar a reconstrução de energia e rejeitar ruídos de fundo. A eficiência mínima exigida para o PDS do DUNE é de Rendimento de luz médio mínimo (*Light Yield*) de 20 PE/MeV no volume ativo e um mínimo localmaior ou igual a 0,5 PE/MeV em qualquer ponto do detector
-
+Numa TPC operando nessas condições, aproximadamente metade da energia depositada por partículas ionizantes se converte em fótons. Isso torna o Photon Detection System(PDS) um componente crítico: ele precisa capturar essa luz de forma uniforme em todo o volume ativo. Os requisitos mínimos do DUNE para o PDS são um rendimento de luz médio (*light yeald*) acima de 20 PE/MeV e um mínimo acima de 0,5 PE/MeV.
 > *Light Yield* refere-se à quantidade de fotoelétrons detectados por energia depositada (PE/MeV).
 
-Neutrinos interagem com o argônio líquido dentro da field cage, fazendo com que o meio emita luz de cintilação em 128 nm (ultravioleta de vácuo, VUV). Nesse comprimento de onda, a luz sofre intenso espalhamento Rayleigh no argônio líquido, limitando significativamente o livre caminho médio dos fótons. Uma das formas de diminuir esse efeito é dopar o LAr com uma pequena concentração de xenônio líquido(LXe). O xenônio desloca o comprimento de onda da emissão de 128 nm para 173 nm, espectro em que o espalhamento Rayleigh é consideravelmente menor e o livre caminho médio dos fótons é maior e também atua como compensador para perdas de luz causadas por contaminantes, como traços de nitrogênio e oxigênio.
+### O desafio do VUV 
 
+Um grande obstáculo na detecção desses fótons, é que o LAr emite sua luz de cintilação em 128 nm, na região do ultravioleta de vácuo (VUV). Nesse comprimento de onda, o argônio puro apresenta um comprimento de espalhamento Rayleigh muito curto, o que compromete a uniformidade de coleta: fótons produzidos longe das bordas do detector têm probabilidade muito menor de serem detectados.
+
+Uma solução estudada é dopar o LAr com traços de xenônio (~10 ppm). Nessa concentração, a componente lenta da cintilação do argônio é quase inteiramente transferida para o xenônio, que re-emite em torno de 173 nm , uma região onde o comprimento de espalhamento Rayleigh é cerca de quatro vezes maior do que em 128 nm. 
+
+Mesmo em 173 nm os fótons ainda são VUV e não são detectáveis por SiPMs convencionais. Para isso, são usados materiais chamados de *wavelength shifters* (WLS), que absorvem fótons VUV e re-emitem em comprimentos de onda visíveis (~400–450 nm). No PoWER, esse papel é desempenhado pelo **PEN** (*Poly(ethylene 2,6-naphthalate)*), um polímero termoplástico que pode ser facilmente laminado em folhas de grande área e apresenta entre 30% e 75% da eficiência do WLS mais utilizado historicamente, o TPB.
 
 ## O Sistema PoWER
 
-O PoWER (Polymer Wavelength Enhanced Reflector) é um sistema de conversão e reflexão de luz desenvolvido para aumentar o rendimento e a uniformidade da detecção de fótons no DUNE.
+O PoWER (Polymer Wavelength Enhanced Reflector) é o sistema WPS proposto pelo nosso grupo de pesquisa.
 
 ### Princípio de funcionamento
 
@@ -41,7 +42,6 @@ O PoWER converte a luz de cintilação UV do argônio em luz visível, que possu
 | VETO | Acrílico | 1 mm | Bloqueia a reentrada de luz de eventos fora do volume ativo |
 
 Adicionalmente, uma camada de do material ESR (Enhanced Specular Reflector) são instalados, oferecendo ≥ 95% de refletividade no espectro visível, aumentando a probabilidade de os fótons convertidos alcançarem os detectores.
-
 
 O comportamento do sistema varia conforme a localização do evento de interação:
 
