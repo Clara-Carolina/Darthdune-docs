@@ -83,8 +83,11 @@ mkdir geant4-v11.2.0-install
 
 Você deve ter agora:
 ~/geant4/
+
 ├── geant4-v11.2.0/          ← código-fonte (não mexa aqui)
+
 ├── geant4-v11.2.0-build/    ← onde a compilação acontece
+
 └── geant4-v11.2.0-install/  ← onde o Geant4 será instalado
 
 ### 3. Configuração com CMake
