@@ -50,9 +50,11 @@ sudo apt-get install gcc g++ cmake make
 Para visualização 3D e interface gráfica, instale também:
 
 ```bash
-sudo apt-get install libx11-dev libxmu-dev libxi-dev \
+sudo apt-get update && sudo apt-get install -y \
+  libx11-dev libxmu-dev libxi-dev \
   libxrender-dev libxrandr-dev libxxf86vm-dev \
-  qt5-default libqt5opengl5-dev \
+  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools \
+  libqt5opengl5-dev \
   libxerces-c-dev
 ```
 > QT library (responsável pela interface do usuário e visualização)
@@ -74,35 +76,35 @@ mkdir -p ~/geant4
 cd ~/geant4
 
 # Extraia o código-fonte
-tar -xzf geant4-v11.2.0.tar.gz
+tar -xzf geant4-suaversao.tar.gz
 
 # Crie os diretórios de build e instalação
-mkdir geant4-v11.2.0-build
-mkdir geant4-v11.2.0-install
+mkdir geant4-build
+mkdir geant4-install
 ```
 
 Você deve ter agora:
 ~/geant4/
 
-├── geant4-v11.2.0/          ← código-fonte (não mexa aqui)
+├── geant4-suaversao/          ← código-fonte (não mexa aqui)
 
-├── geant4-v11.2.0-build/    ← onde a compilação acontece
+├── geant4-build/    ← onde a compilação acontece
 
-└── geant4-v11.2.0-install/  ← onde o Geant4 será instalado
+└── geant4-install/  ← onde o Geant4 será instalado
 
 ### 3. Configuração com CMake
 
 Entre no diretório de build e rode o CMake apontando para o fonte e para o destino de instalação:
 
 ```bash
-cd ~/geant4/geant4-v11.2.0-build
+cd ~/geant4/geant4-build
 
 cmake \
-  -  -DCMAKE_INSTALL_PREFIX=$HOME/geant4/geant4-v11.2.0-install \
+  -  -DCMAKE_INSTALL_PREFIX=$HOME/geant4/geant4-install \
   -DGEANT4_INSTALL_DATA=ON \
   -DGEANT4_USE_QT=ON \
   -DGEANT4_USE_GDML=ON \
-  ../geant4-v11.2.0
+  ../geant4-suaversao
 ```
 Se o CMake retornar erros, encontre a mensagem de erro, ela que vai dizer qual dependência está faltando
 Se o CMake finalizar com `-- Configuring done` e `-- Build files have been written to: ...`, a configuração foi bem-sucedida
@@ -132,7 +134,7 @@ Isso copia as bibliotecas, headers e arquivos de suporte para o diretório de in
 Para que o sistema encontre as bibliotecas do Geant4, é necessário carregar o script de ambiente a cada sessão. Adicione a linha abaixo ao seu `~/.bashrc` para que isso aconteça automaticamente:
 
 ```bash
-echo "source $HOME/geant4/geant4-v11.2.0-install/bin/geant4.sh" >> ~/.bashrc
+echo "source $HOME/geant4/geant4-install/bin/geant4.sh" >> ~/.bashrc
 source ~/.bashrc
 ```
 Verifique se funcionou:
@@ -148,7 +150,7 @@ O Geant4 vem com exemplos prontos. O `B1` é o mais simples e serve para confirm
 
 ```bash
 # Copie o exemplo para fora do diretório de instalação
-cp -r $HOME/geant4/geant4-v11.2.0-install/share/Geant4/examples/basic/B1 \
+cp -r $HOME/geant4/geant4-install/share/Geant4/examples/basic/B1 \
       $HOME/geant4/example-B1
 
 # Crie o diretório de build do exemplo
